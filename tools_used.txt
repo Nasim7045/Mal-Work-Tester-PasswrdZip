@@ -1,0 +1,36 @@
+1. Primary Tools
+Tool	Purpose	Command Examples
+fcrackzip	Fast dictionary/brute-force attacks on traditional ZIP encryption	fcrackzip -u -D -p rockyou.txt file.zip
+John the Ripper	Advanced cracking (supports AES encryption) via hash extraction	zip2john file.zip > hash.txt
+john --wordlist=rockyou.txt hash.txt
+Hashcat	GPU-accelerated cracking (for faster results with supported hardware)	hashcat -m 13600 hash.hc rockyou.txt
+2. Support Tools
+Tool	Purpose
+zip2john	Extracts password hashes from ZIP files for John/Hashcat
+unzip	Tests ZIP integrity/extracts files after cracking (unzip -P 'password' file.zip)
+7z	Alternative extraction tool (handles some edge cases better than unzip)
+3. Wordlists
+rockyou.txt (Default in Kali)
+
+Path: /usr/share/wordlists/rockyou.txt
+
+Custom wordlists (e.g., numbers, patterns)
+
+Generated with crunch or combined from existing lists.
+
+4. Python Scripts (Custom)
+Extraction Automation:
+
+python
+import zipfile
+# Code to try cracked passwords on multi-password ZIPs
+Brute-Force Testing:
+
+python
+# Simple brute-force script for numeric passwords
+When to Use Which Tool?
+Scenario	Best Tool
+Traditional ZIP encryption	fcrackzip
+AES-encrypted ZIPs	John/Hashcat
+GPU available?	Hashcat
+Multi-password ZIPs	John + Python
